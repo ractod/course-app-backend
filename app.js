@@ -35,5 +35,3 @@ app.use("/uploads", express.static("./tmp"))
 app.listen(5000, () => {
    console.log("started!!")
 })
-
-module.exports = app
