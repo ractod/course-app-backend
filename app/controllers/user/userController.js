@@ -78,7 +78,7 @@ class UserController {
             maxAge: 0 , 
             httpOnly: true, 
             path: "/",
-            sameSite: "strict",
+            sameSite: "none",
             secure: true,
             domain: process.env.ORIGIN
          })

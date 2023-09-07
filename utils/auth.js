@@ -7,7 +7,7 @@ function setToken(_id, res) {
       maxAge: 24 * 60 * 60 , 
       httpOnly: true, 
       path: "/",
-      sameSite: "strict",
+      sameSite: "none",
       secure: true,
       domain: process.env.ORIGIN
    })
