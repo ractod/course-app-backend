@@ -30,7 +30,7 @@ app.use("/cart", cartRouter)
 app.use("/payment", paymentRouter)
 app.use("/admin", adminRouter)
 app.use("/categories", categoriesRouter)
-app.use("/uploads", express.static("./uploads"))
+app.use("/uploads", express.static("./tmp"))
 
 app.listen(5000, () => {
    console.log("started!!")

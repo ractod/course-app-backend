@@ -6,7 +6,7 @@ import multer from "multer";
 
 
 const router = express.Router();
-const upload = multer({ dest: "uploads/", fileFilter: (req, file, cb) => {
+const upload = multer({ dest: "tmp/", fileFilter: (req, file, cb) => {
    if(file.fieldname === "cover") {
       if(!file.mimetype.startsWith("image")) {
          cb(new Error("file type"), false)

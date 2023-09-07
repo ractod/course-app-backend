@@ -15,7 +15,7 @@ import {
 } from "../../validators/user.js";
 import { verifyToken } from "../../utils/auth.js";
 import multer from "multer";
-const upload = multer({ dest: "uploads/" })
+const upload = multer({ dest: "tm/" })
 
 
 const router = express.Router();
