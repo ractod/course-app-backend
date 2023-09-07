@@ -1,5 +1,5 @@
 import express from "express"
-import Fieldscontroller from "../controllers/fileds/Fieldscontroller.js"
+import Fieldscontroller from "../controllers/fileds/FieldsController.js"
 
 const router = express.Router()
 
