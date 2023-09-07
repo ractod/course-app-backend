@@ -75,9 +75,12 @@ class UserController {
       try {
          const token = JWT.sign({}, process.env.COOKIE_SECRET, { expiresIn: 0 }) 
          const options = serialize("token", token, {
-            maxAge: 0,
+            maxAge: 0 , 
+            httpOnly: true, 
             path: "/",
-            httpOnly: true
+            sameSite: "strict",
+            secure: true,
+            domain: process.env.ORIGIN
          })
          res.status(200)
          .setHeader("Set-Cookie", options)
