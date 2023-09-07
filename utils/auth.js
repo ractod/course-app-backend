@@ -8,9 +8,9 @@ function setToken(_id, res) {
       httpOnly: true,
       secure: true,
       sameSite: "none",
-      domain: ".vercel.app",
+      domain: "vercel.app",
       path: "/",
-      
+
    })
    
    res.setHeader("Set-Cookie", options); 
