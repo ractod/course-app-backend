@@ -5,7 +5,8 @@ function setToken(_id, res) {
    const token = JWT.sign({ _id }, process.env.COOKIE_SECRET, { expiresIn: 24 * 60 * 60 })
    const options = serialize("token", token,{
       maxAge: 24 * 60 * 60 , 
-      httpOnly: true, 
+      httpOnly: true,
+      secure: true
    })
    
    res.setHeader("Set-Cookie", options); 
