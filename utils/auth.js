@@ -8,7 +8,7 @@ function setToken(_id, res) {
       httpOnly: true, 
       path: "/",
       sameSite: "none",
-      secure: true,
+      secure: false,
       domain: process.env.ORIGIN
    })
    
