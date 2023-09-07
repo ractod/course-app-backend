@@ -4,8 +4,8 @@ import CouponModel from "../../models/coupon.js";
 import CourseModel from "../../models/course.js";
 import FieldModel from "../../models/field.js";
 import UserModel from "../../models/user.js";
-import Ffmpeg from "fluent-ffmpeg";
-import { getVideoDurationInSeconds } from "get-video-duration";
+// import Ffmpeg from "fluent-ffmpeg";
+// import { getVideoDurationInSeconds } from "get-video-duration";
 
 class MentorController {
    async updateProfile(req, res) {
@@ -77,18 +77,18 @@ class MentorController {
             description
          } = req.body
          
-         const durationsPromise = sessionsFiles.map(async (file) => {
-            return getVideoDurationInSeconds(
-               `${process.env.API_URL}/uploads/${file.filename}`
-            ).then(duration => Number(duration / 60).toFixed(2))
-         })
-         const durations = await Promise.all(durationsPromise)
+         // const durationsPromise = sessionsFiles.map(async (file) => {
+         //    return getVideoDurationInSeconds(
+         //       `${process.env.API_URL}/uploads/${file.filename}`
+         //    ).then(duration => Number(duration / 60).toFixed(2))
+         // })
+         // const durations = await Promise.all(durationsPromise)
 
          const updatedSession = sessions.map((session, index) => ({
             title: session.title,
             description: session.description || "",
             videoLink: `${process.env.API_URL}/uploads/${sessionsFiles[index].filename}`,
-            duration: durations[index],
+            // duration: durations[index],
             isFree: session.isFree
          }))
 
@@ -136,17 +136,17 @@ class MentorController {
             category
          } = req.body;
 
-         const durationsPromise = sessionsFiles.map(file => {
-            return getVideoDurationInSeconds(
-               `${process.env.API_URL}/uploads/${file.filename}`
-            ).then(duration => Number(duration / 60).toFixed(2))
-         })
-         const durations = await Promise.all(durationsPromise)
+         // const durationsPromise = sessionsFiles.map(file => {
+         //    return getVideoDurationInSeconds(
+         //       `${process.env.API_URL}/uploads/${file.filename}`
+         //    ).then(duration => Number(duration / 60).toFixed(2))
+         // })
+         // const durations = await Promise.all(durationsPromise)
          const updatedSession = sessions.map((session) => ({
             title: session.title,
             description: session.description || "",
             videoLink: session.videoLink || `${process.env.API_URL}/uploads/${sessionsFiles.splice(0, 1)[0].filename}`,
-            duration: session.duration || durations.splice(0, 1)[0],
+            // duration: session.duration || durations.splice(0, 1)[0],
             isFree: session.isFree
          }))
 
