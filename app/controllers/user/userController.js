@@ -151,13 +151,15 @@ class UserController {
 
    async getUser(req, res) {
       try {
+         console.log("alo")
          const user = await getUser(req)
          if(req.userId) {
             const cart = await getUpdatedCart(req)
             user.cart = cart
          }
          res.status(200).json(user || null)
-      } catch {
+      } catch(error) {
+         console.log(error)
          res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
       }
    }

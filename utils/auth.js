@@ -7,7 +7,8 @@ function setToken(_id, res) {
       maxAge: 24 * 60 * 60 , 
       httpOnly: true,
       secure: true,
-      sameSite: "none"
+      sameSite: "none",
+      domain: "https://amoziline.vercel.app"
    })
    
    res.setHeader("Set-Cookie", options); 
