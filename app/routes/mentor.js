@@ -6,16 +6,16 @@ import multer from "multer";
 
 
 const router = express.Router();
-const upload = multer({ dest: "tmp/", fileFilter: (req, file, cb) => {
-   if(file.fieldname === "cover") {
-      if(!file.mimetype.startsWith("image")) {
-         cb(new Error("file type"), false)
-      }
-   } else if(!file.mimetype.startsWith("video")) {
-      cb(new Error("file type"), false)
-   }
-   cb(null, true)
-}, preservePath: true})
+// const upload = multer({ dest: "tmp/", fileFilter: (req, file, cb) => {
+//    if(file.fieldname === "cover") {
+//       if(!file.mimetype.startsWith("image")) {
+//          cb(new Error("file type"), false)
+//       }
+//    } else if(!file.mimetype.startsWith("video")) {
+//       cb(new Error("file type"), false)
+//    }
+//    cb(null, true)
+// }, preservePath: true})
 
 router.post(
    "/profile",
@@ -37,7 +37,7 @@ router.post(
    "/courses",
    isAuthMiddleware,
    checkRoleMiddleware("mentor"),
-   upload.any(),
+   // upload.any(),
    validatorMiddleware(courseValidator),
    mentorController.createCourse
 );
@@ -46,7 +46,7 @@ router.patch(
    "/courses/:courseId",
    isAuthMiddleware,
    checkRoleMiddleware("mentor"),
-   upload.any(),
+   // upload.any(),
    validatorMiddleware(courseValidator),
    mentorController.updateCourse
 );

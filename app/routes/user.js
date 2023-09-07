@@ -15,7 +15,7 @@ import {
 } from "../../validators/user.js";
 import { verifyToken } from "../../utils/auth.js";
 import multer from "multer";
-const upload = multer({ dest: "tmp/" })
+// const upload = multer({ dest: "tmp/" })
 
 
 const router = express.Router();
@@ -82,7 +82,7 @@ router.get(
 router.patch(
    "/avatar",
    isAuthMiddleware,
-   upload.single("avatar"),
+   // upload.single("avatar"),
    userController.updateAvatar
 )
 
