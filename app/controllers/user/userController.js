@@ -79,9 +79,8 @@ class UserController {
             maxAge: 0, 
             httpOnly: true,
             path: "/",
-            sameSite: "none",
+            sameSite: 'strict',
             secure: true,
-            domain: "amoziline.vercel.app"
          })
          res.status(200)
          .setHeader("Set-Cookie", options)
