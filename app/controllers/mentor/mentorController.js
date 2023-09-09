@@ -1,11 +1,9 @@
-import multer from "multer";
 import getUser from "../../../utils/getUser.js";
 import CouponModel from "../../models/coupon.js";
 import CourseModel from "../../models/course.js";
 import FieldModel from "../../models/field.js";
 import UserModel from "../../models/user.js";
 import uploader from "../../../utils/uploader.js";
-// import Ffmpeg from "fluent-ffmpeg";
 import { getVideoDurationInSeconds } from "get-video-duration";
 
 class MentorController {
