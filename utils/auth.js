@@ -7,7 +7,8 @@ function setToken(_id, res) {
       maxAge: 24 * 60 * 60 , 
       httpOnly: true,
       path: "/",
-      sameSite: "none"
+      sameSite: "none",
+      secure: false
    })
    
    res.setHeader("Set-Cookie", options); 

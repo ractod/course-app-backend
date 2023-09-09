@@ -79,7 +79,8 @@ class UserController {
             maxAge: 0, 
             httpOnly: true,
             path: "/",
-            sameSite: "none"
+            sameSite: "none",
+            secure: true
          })
          res.status(200)
          .setHeader("Set-Cookie", options)
