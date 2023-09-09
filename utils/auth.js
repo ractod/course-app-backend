@@ -6,7 +6,8 @@ function setToken(_id, res) {
    const options = serialize("token", token,{
       maxAge: 24 * 60 * 60 , 
       httpOnly: true,
-      path: "/"
+      path: "/",
+      sameSite: "none"
    })
    
    res.setHeader("Set-Cookie", options); 
