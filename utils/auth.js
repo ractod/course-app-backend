@@ -9,7 +9,6 @@ function setToken(_id, res) {
       path: "/",
       sameSite: "none",
       secure: true,
-      domain: "amoziline.vercel.app"
    })
    
    res.setHeader("Set-Cookie", options); 
