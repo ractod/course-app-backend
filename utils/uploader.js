@@ -31,3 +31,4 @@ function uploader(files, type) {
 }
 
 export default uploader;
+export { cloudinary }

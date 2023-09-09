@@ -4,8 +4,12 @@ import CourseModel from "../../models/course.js";
 import FieldModel from "../../models/field.js";
 import UserModel from "../../models/user.js";
 import uploader from "../../../utils/uploader.js";
-import { getVideoDurationInSeconds } from "get-video-duration";
 
+const toMinutes = (seconds) => {
+   seconds
+   console.log(seconds < 60 ? ( Math.floor(seconds) / 100) : (seconds / 60).toFixed(2))
+   return seconds < 60 ? ( Math.floor(seconds) / 100) : (seconds / 60).toFixed(2)
+}
 class MentorController {
    async updateProfile(req, res) {
       try {
@@ -78,16 +82,11 @@ class MentorController {
             description
          } = req.body
          
-         const durationsPromise = uploadedSessionsFiles.map(async (file) => {
-            return getVideoDurationInSeconds(file.url).then(duration => Number(duration / 60).toFixed(2))
-         })
-         const durations = await Promise.all(durationsPromise)
-
          const updatedSession = sessions.map((session, index) => ({
             title: session.title,
             description: session.description || "",
             videoLink: uploadedSessionsFiles[index].url,
-            duration: durations[index],
+            duration: toMinutes(uploadedSessionsFiles[index].duration),
             isFree: session.isFree
          }))
 
@@ -138,19 +137,16 @@ class MentorController {
             category
          } = req.body;
 
-         const durationsPromise = uploadedSessionsFiles.map(file => {
-            return getVideoDurationInSeconds(
-               file.url
-            ).then(duration => Number(duration / 60).toFixed(2))
+         const updatedSession = sessions.map((session) => {
+            const sessionItem = uploadedSessionsFiles.splice(0, 1)[0]
+            return {
+               title: session.title,
+               description: session.description || "",
+               videoLink: session.videoLink || sessionItem.url,
+               duration: session.duration || toMinutes(sessionItem.duration),
+               isFree: session.isFree
+            }
          })
-         const durations = await Promise.all(durationsPromise)
-         const updatedSession = sessions.map((session) => ({
-            title: session.title,
-            description: session.description || "",
-            videoLink: session.videoLink || uploadedSessionsFiles.splice(0, 1)[0].url,
-            duration: session.duration || durations.splice(0, 1)[0],
-            isFree: session.isFree
-         }))
 
          const course = await CourseModel.findByIdAndUpdate(
             req.params.courseId,

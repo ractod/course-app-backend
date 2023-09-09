@@ -169,6 +169,7 @@ class UserController {
       try {
          const [avatar] = await uploader([req.file], "image")
          await UserModel.findByIdAndUpdate(req.userId, { avatar: avatar.url })
+         console.log(avatar)
          res.status(200).json({ message: "عکس پروفایل شما با موفقیت تغییر کرد", avatar: avatar.url })
       } catch(error) {
          console.log(error)
