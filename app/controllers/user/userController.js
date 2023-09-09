@@ -79,7 +79,7 @@ class UserController {
             maxAge: 0, 
             httpOnly: true,
             path: "/",
-            sameSite: 'strict',
+            sameSite: 'none',
             secure: true,
          })
          res.status(200)
