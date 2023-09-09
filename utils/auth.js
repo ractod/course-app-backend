@@ -8,7 +8,7 @@ function setToken(_id, res) {
       httpOnly: true,
       path: "/",
       sameSite: "none",
-      secure: false
+      secure: true
    })
    
    res.setHeader("Set-Cookie", options); 
