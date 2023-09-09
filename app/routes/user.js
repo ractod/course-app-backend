@@ -15,10 +15,9 @@ import {
 } from "../../validators/user.js";
 import { verifyToken } from "../../utils/auth.js";
 import multer from "multer";
-// const upload = multer({ dest: "tmp/" })
-
 
 const router = express.Router();
+const upload = multer({ storage: multer.memoryStorage() })
 
 function decideMiddleware(req, res, next) {
    const token = req.cookies.token;
@@ -82,7 +81,7 @@ router.get(
 router.patch(
    "/avatar",
    isAuthMiddleware,
-   // upload.single("avatar"),
+   upload.single("avatar"),
    userController.updateAvatar
 )
 

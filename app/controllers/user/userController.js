@@ -8,6 +8,7 @@ import JWT from "jsonwebtoken"
 import { serialize } from "cookie"
 import getUpdatedCart from "../../../utils/getUpdatedCart.js"
 import getUser from "../../../utils/getUser.js"
+import uploader from "../../../utils/uploader.js"
 
 function parseCookies(request) {
    const list = {};
@@ -166,11 +167,11 @@ class UserController {
 
    async updateAvatar(req, res) {
       try {
-         await UserModel.findByIdAndUpdate(req.userId, {
-            avatar: `http://localhost:5000/uploads/${req.file.filename}`
-         })
-         res.status(200).json({ avatar: `http://localhost:5000/uploads/${req.file.filename}`, message: "عکس پروفایل شما با موفقیت تغییر کرد" })
-      } catch {
+         const [avatar] = await uploader([req.file], "image")
+         await UserModel.findByIdAndUpdate(req.userId, { avatar: avatar.url })
+         res.status(200).json({ message: "عکس پروفایل شما با موفقیت تغییر کرد", avatar: avatar.url })
+      } catch(error) {
+         console.log(error)
          res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
       }
    }

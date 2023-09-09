@@ -4,8 +4,9 @@ import CouponModel from "../../models/coupon.js";
 import CourseModel from "../../models/course.js";
 import FieldModel from "../../models/field.js";
 import UserModel from "../../models/user.js";
+import uploader from "../../../utils/uploader.js";
 // import Ffmpeg from "fluent-ffmpeg";
-// import { getVideoDurationInSeconds } from "get-video-duration";
+import { getVideoDurationInSeconds } from "get-video-duration";
 
 class MentorController {
    async updateProfile(req, res) {
@@ -66,6 +67,8 @@ class MentorController {
    async createCourse(req, res) {
       try {
          const [coverFile, ...sessionsFiles] = req.files
+         const [uploadedCoverFile] = await uploader([coverFile], "image")
+         const uploadedSessionsFiles = await uploader(sessionsFiles, "video")
 
          const {
             title,
@@ -77,18 +80,16 @@ class MentorController {
             description
          } = req.body
          
-         // const durationsPromise = sessionsFiles.map(async (file) => {
-         //    return getVideoDurationInSeconds(
-         //       `${process.env.API_URL}/uploads/${file.filename}`
-         //    ).then(duration => Number(duration / 60).toFixed(2))
-         // })
-         // const durations = await Promise.all(durationsPromise)
+         const durationsPromise = uploadedSessionsFiles.map(async (file) => {
+            return getVideoDurationInSeconds(file.url).then(duration => Number(duration / 60).toFixed(2))
+         })
+         const durations = await Promise.all(durationsPromise)
 
          const updatedSession = sessions.map((session, index) => ({
             title: session.title,
             description: session.description || "",
-            videoLink: `${process.env.API_URL}/uploads/${sessionsFiles[index].filename}`,
-            // duration: durations[index],
+            videoLink: uploadedSessionsFiles[index].url,
+            duration: durations[index],
             isFree: session.isFree
          }))
 
@@ -98,7 +99,7 @@ class MentorController {
             price,
             discount,
             category,
-            cover: `${process.env.API_URL}/uploads/${coverFile.filename}`,
+            cover: uploadedCoverFile.url,
             mentor: req.userId,
             details: { description, duration },
             offPrice: Number(discount) ? price - discount : null,
@@ -116,15 +117,18 @@ class MentorController {
             message: "دوره شما با موفقیت ساخته شد و در انتظار برسی می باشد",
          });
       } catch (error) {
-         console.log(error);
+         console.log(error, "error");
          res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
       }
    }
 
    async updateCourse(req, res) {
       try {
+         const coverFile = req.files.find(file => file.mimetype.startsWith("image")) || []
          const sessionsFiles = req.files.filter(file => file.mimetype.startsWith("video"))
-         const coverFile = req.files.filter(file => file.mimetype.startsWith("image"))[0]
+         const [uploadedCoverFile] = await uploader(coverFile, "image")
+         const uploadedSessionsFiles = await uploader(sessionsFiles, "video")
+
          const {
             title,
             sessions,
@@ -136,17 +140,17 @@ class MentorController {
             category
          } = req.body;
 
-         // const durationsPromise = sessionsFiles.map(file => {
-         //    return getVideoDurationInSeconds(
-         //       `${process.env.API_URL}/uploads/${file.filename}`
-         //    ).then(duration => Number(duration / 60).toFixed(2))
-         // })
-         // const durations = await Promise.all(durationsPromise)
+         const durationsPromise = uploadedSessionsFiles.map(file => {
+            return getVideoDurationInSeconds(
+               file.url
+            ).then(duration => Number(duration / 60).toFixed(2))
+         })
+         const durations = await Promise.all(durationsPromise)
          const updatedSession = sessions.map((session) => ({
             title: session.title,
             description: session.description || "",
-            videoLink: session.videoLink || `${process.env.API_URL}/uploads/${sessionsFiles.splice(0, 1)[0].filename}`,
-            // duration: session.duration || durations.splice(0, 1)[0],
+            videoLink: session.videoLink || uploadedSessionsFiles.splice(0, 1)[0].url,
+            duration: session.duration || durations.splice(0, 1)[0],
             isFree: session.isFree
          }))
 
@@ -155,7 +159,7 @@ class MentorController {
             {
                title,
                sessions: updatedSession,
-               cover: cover || `${process.env.API_URL}/uploads/${coverFile.filename}`,
+               cover: cover || uploadedCoverFile.url,
                price,
                discount,
                category,
