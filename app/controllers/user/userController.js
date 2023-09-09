@@ -81,6 +81,7 @@ class UserController {
             path: "/",
             sameSite: "none",
             secure: true,
+            domain: "amoziline.vercel.app"
          })
          res.status(200)
          .setHeader("Set-Cookie", options)
