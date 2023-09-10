@@ -3,15 +3,14 @@ import JWT from "jsonwebtoken";
 
 function setToken(_id, res) {
    const token = JWT.sign({ _id }, process.env.COOKIE_SECRET, { expiresIn: 24 * 60 * 60 })
-   const options = serialize("token", token,{
+   const options = {
       maxAge: 24 * 60 * 60 , 
-      httpOnly: true,
-      path: "/",
-      sameSite: 'strict',
       secure: true,
-   })
+      sameSite: "none",
+      httpOnly: true
+   }
    
-   res.setHeader("Set-Cookie", options); 
+   res.cookie("token", token, options)
 }
 
 function verifyToken(token) {
