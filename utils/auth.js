@@ -8,7 +8,6 @@ function setToken(_id, res) {
       secure: true,
       sameSite: "strict",
       httpOnly: true,
-      domain: "amoziline.vercel.app"
    }
    
    res.cookie("token", token, options)
