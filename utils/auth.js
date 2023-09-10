@@ -9,6 +9,7 @@ function setToken(_id, res) {
       path: "/",
       sameSite: 'none',
       secure: true,
+      domain: "localhost"
    })
    
    res.setHeader("Set-Cookie", options); 
