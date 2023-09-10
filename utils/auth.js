@@ -6,9 +6,8 @@ function setToken(_id, res) {
    const options = {
       maxAge: 24 * 60 * 60 , 
       secure: true,
-      sameSite: "none",
+      sameSite: "lax",
       httpOnly: true,
-      domain: "amoziline.vercel.app"
    }
    
    res.cookie("token", token, options)
