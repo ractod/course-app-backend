@@ -1,4 +1,3 @@
-import { serialize } from "cookie";
 import JWT from "jsonwebtoken";
 
 function setToken(_id, res) {
@@ -6,8 +5,8 @@ function setToken(_id, res) {
    const options = {
       maxAge: 24 * 60 * 60 , 
       secure: true,
-      sameSite: "strict",
       httpOnly: true,
+      path: "/"
    }
    
    res.cookie("token", token, options)
