@@ -43,7 +43,7 @@ class MentorController {
          });
       } catch (error) {
          console.log(error)
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
 
@@ -62,7 +62,7 @@ class MentorController {
          });
       } catch (error) {
          console.log(error);
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
 
@@ -115,7 +115,7 @@ class MentorController {
          });
       } catch (error) {
          console.log(error, "error");
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
 
@@ -171,7 +171,7 @@ class MentorController {
          });
       } catch(error) {
          console.log(error)
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
 
@@ -187,7 +187,7 @@ class MentorController {
    
          res.status(200).json({ message: "دوره شما با موفقیت حذف شد", });
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
 
@@ -212,7 +212,7 @@ class MentorController {
 
          res.status(200).json({ message: "رای شما ثبت شد", avrage: mentor.mentorData.rate.avrage });
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
 
@@ -243,7 +243,7 @@ class MentorController {
             message: "کد تخفیف شما ساخته شد",
          });
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
 
@@ -276,7 +276,7 @@ class MentorController {
          res.status(200).json({ coupon, message: "کد تخفیف شما با موفقیت تغییر کرد" })
       } catch(error) {
          console.log(error)
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
 
@@ -289,7 +289,7 @@ class MentorController {
    
          res.status(200).json({ message: "کد تخفیف شما با موفقیت حذف شد" })
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
 
@@ -306,7 +306,7 @@ class MentorController {
 
          res.status(200).json(mentors)
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
 
@@ -319,7 +319,7 @@ class MentorController {
          }).populate("mentorData.fields")
          res.status(200).json(mentor)
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
 }

@@ -2,7 +2,7 @@ import UserModel from "../app/models/user.js";
 import { verifyToken } from "../utils/auth.js";
 
 function isAuthMiddleware(req, res, next) {
-   const token = req.cookies.token;
+   const token = req.headers?.authorization?.split(" ")[1];
    const verifiedtoken = verifyToken(token);
 
    if (verifiedtoken) {

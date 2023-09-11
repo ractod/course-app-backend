@@ -39,11 +39,11 @@ class UserController {
    
          const hashedPassword = await BCRYPTJS.hash(password, 12)
          const user = await UserModel.create({ fullname, email, password: hashedPassword })
-         setToken(user._id, res)
+         const token = JWT.sign({ _id: user._id }, process.env.COOKIE_SECRET, { expiresIn: 24 * 60 * 60 })
    
-         res.status(201).json({ message: "حساب شما با موفقیت ساخته شد" })
+         res.status(201).json({ message: "حساب شما با موفقیت ساخته شد", token })
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 
@@ -63,12 +63,12 @@ class UserController {
          if(user.status === "deleted") {
             return res.status(400).json({ message: "حساب کاربری شما به دستور ادمین از دسترس خارج شده" })
          }
+
+         const token = JWT.sign({ _id: user._id }, process.env.COOKIE_SECRET, { expiresIn: 24 * 60 * 60 })
    
-         setToken(user._id, res)
-   
-         res.status(200).json({ message: "شما با موفقیت وارد حساب کاربری خود شدید" })
+         res.status(200).json({ message: "شما با موفقیت وارد حساب کاربری خود شدید", token })
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 
@@ -85,7 +85,7 @@ class UserController {
          .setHeader("Set-Cookie", options)
          .json({ message: "شما با موفقیت از حساب خود خارج شدید" })
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 
@@ -100,7 +100,7 @@ class UserController {
             return res.status(200).json({ status: "unAuthenticated" })
          }
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 
@@ -115,7 +115,7 @@ class UserController {
          res.status(200).json({ message: "شما با موفقیت به سطح مدرس ارتقا یافتید" })
    
       } catch(error) {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 
@@ -135,7 +135,7 @@ class UserController {
    
          res.status(200).json({ user, message: "اطلاعات شما با موفقیت تغییر کرد" })
       } catch(error) {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 
@@ -144,13 +144,13 @@ class UserController {
          const user = await UserModel.findById(req.userId)
          res.status(200).json({ role: user.role })
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 
    async getUser(req, res) {
       try {
-         console.log("alo")
+         console.log({id: req.userId})
          const user = await getUser(req)
          if(req.userId) {
             const cart = await getUpdatedCart(req)
@@ -159,7 +159,7 @@ class UserController {
          res.status(200).json(user || null)
       } catch(error) {
          console.log(error)
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 
@@ -171,7 +171,7 @@ class UserController {
          res.status(200).json({ message: "عکس پروفایل شما با موفقیت تغییر کرد", avatar: avatar.url })
       } catch(error) {
          console.log(error)
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 }

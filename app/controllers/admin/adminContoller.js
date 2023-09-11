@@ -20,7 +20,7 @@ class AdminContoller {
             })
          res.status(200).json(payments)
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 
@@ -29,7 +29,7 @@ class AdminContoller {
          const courses = await CourseModel.find({ status: { $ne: "deleted" } }).populate("mentor category")
          res.status(200).json(courses)
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 
@@ -42,7 +42,7 @@ class AdminContoller {
          await course.populate("mentor category")
          res.status(200).json({ message: "دوره مورد نظر رد شد", course })
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 
@@ -52,7 +52,7 @@ class AdminContoller {
          await course.populate("mentor category")
          res.status(200).json({ message: "دوره مورد نظر تایید شد", course })
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 
@@ -61,7 +61,7 @@ class AdminContoller {
          const categories = await CategoryModel.find({ status: { $ne: "deleted" } })
          res.status(200).json(categories)
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    } 
 
@@ -71,7 +71,7 @@ class AdminContoller {
          const category = await CategoryModel.create({ title, englishTitle })
          res.status(201).json({ message: "دسته بندی با موفقیت ساخته شد", category })
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 
@@ -83,7 +83,7 @@ class AdminContoller {
          }, { new: true })
          res.status(200).json({ message: "دسته بندی مورد نظر با موفقیت تغییر کرد", category })
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 
@@ -92,7 +92,7 @@ class AdminContoller {
          await CategoryModel.findByIdAndUpdate(req.params.categoryId, { status: "deleted" })
          res.status(200).json({ message: "دستبه بندی مورد نظر با موفقیت حذف شد" })
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 
@@ -101,7 +101,7 @@ class AdminContoller {
          const fields = await FieldModel.find({ status: { $ne: "deleted" } })
          res.status(200).json(fields)
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    } 
 
@@ -111,7 +111,7 @@ class AdminContoller {
          const field = await FieldModel.create({ title, englishTitle })
          res.status(201).json({ message: "حوضه با موفقیت ساخته شد", field })
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 
@@ -123,7 +123,7 @@ class AdminContoller {
          }, { new: true })
          res.status(200).json({ message: "رشته مورد نظر با موفقیت تغییر کرد", field })
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 
@@ -132,7 +132,7 @@ class AdminContoller {
          await FieldModel.findByIdAndUpdate(req.params.fieldId, { status: "deleted" })
          res.status(200).json({ message: "رشته مورد نظر با موفقیت حذف شد" })
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 
@@ -146,7 +146,7 @@ class AdminContoller {
          res.status(200).json(users)
       } catch(error) {
          console.log(error)
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 
@@ -156,7 +156,7 @@ class AdminContoller {
          res.status(200).json({ message: "کاربر با موفقیت حذف شد" })
       } catch(error) {
          console.log(error)
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 
@@ -192,7 +192,7 @@ class AdminContoller {
          })
       } catch(error) {
          console.log(error)
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 }

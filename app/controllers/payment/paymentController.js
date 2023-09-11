@@ -51,7 +51,7 @@ class PaymentContoller {
          res.status(200).json({ message: "پرداخت با موفقیت انجام شد", })
       } catch(error) {
          console.log(error)
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 }

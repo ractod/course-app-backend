@@ -67,7 +67,7 @@ class CourseController {
          res.status(200).json(limit ? {courses, pagesCount} : courses);
       } catch(error) {
          console.log(error)
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
 
@@ -83,7 +83,7 @@ class CourseController {
          res.status(200).json({ course, relatedCourses });
       } catch(error) {
          console.log(error)
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
 
@@ -109,7 +109,7 @@ class CourseController {
          });
       } catch (error) {
          console.log(error);
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
 
@@ -133,7 +133,7 @@ class CourseController {
          });
       } catch (error) {
          console.log(error);
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
 }

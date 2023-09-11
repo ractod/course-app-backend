@@ -6,7 +6,7 @@ class CategoriesController {
          const categories = await CategoryModel.find({ status: { $ne: "deleted" } })
          res.status(200).json(categories)
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
       }
    }
 }

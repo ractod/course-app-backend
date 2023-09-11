@@ -26,7 +26,7 @@ class CartController {
          res.status(200).json({ message: "دوره با موفقیت به سبد خرید شما اضافه شد", cart })
       } catch(error) {
          console.log(error)
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }  
    }
 
@@ -41,7 +41,7 @@ class CartController {
 
          res.status(200).json({ message: "دوره با موفقیت از سبد خرید شما حذف شد", cart: updatedCart })
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
 
@@ -55,7 +55,7 @@ class CartController {
          })
       } catch(error) {
          console.log(error)
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
 
@@ -70,7 +70,7 @@ class CartController {
          
          res.status(200).json({ message: "سبد خرید شما با موفقیت پاک شد", cart: user.cart })
       } catch {
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
 
@@ -108,7 +108,7 @@ class CartController {
          res.status(200).json({ message: "کد تخفیف با موفقیت اعمال شد", cart: updatedCart })
       } catch(error) {
          console.log(error)
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
 
@@ -126,7 +126,7 @@ class CartController {
          res.status(200).json({ message: "کد تخفیف با موفقیت حذف شد", cart: updatedCart }) 
       } catch(error) {
          console.log(error)
-         res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" });
+         res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
 }

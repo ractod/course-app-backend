@@ -6,7 +6,7 @@ class FieldsController {
       const fields = await FieldModel.find({ status: { $ne: "deleted" } })
       res.status(200).json(fields)
     } catch {
-      res.status(500).json({ message: "خطلا در برقراری ارتباط با سرور" })
+      res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" })
     }
   }
 }
