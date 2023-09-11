@@ -16,7 +16,7 @@ function uploader(files, type) {
               if (result) {
                 resolve(result)
               } else {
-                reject();
+                reject(error);
               }
             })
             .end(file.buffer);

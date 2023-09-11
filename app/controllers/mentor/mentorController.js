@@ -6,8 +6,6 @@ import UserModel from "../../models/user.js";
 import uploader from "../../../utils/uploader.js";
 
 const toMinutes = (seconds) => {
-   seconds
-   console.log(seconds < 60 ? ( Math.floor(seconds) / 100) : (seconds / 60).toFixed(2))
    return seconds < 60 ? ( Math.floor(seconds) / 100) : (seconds / 60).toFixed(2)
 }
 class MentorController {
@@ -89,7 +87,7 @@ class MentorController {
             duration: toMinutes(uploadedSessionsFiles[index].duration),
             isFree: session.isFree
          }))
-
+         console.log(uploadedSessionsFiles)
          const course = await CourseModel.create({
             title,
             sessions: updatedSession,
@@ -122,9 +120,10 @@ class MentorController {
    async updateCourse(req, res) {
       try {
          const coverFile = req.files.find(file => file.mimetype.startsWith("image")) || []
-         const sessionsFiles = req.files.filter(file => file.mimetype.startsWith("video"))
-         const [uploadedCoverFile] = await uploader(coverFile, "image")
+         const sessionsFiles = req.files.filter(file => file.mimetype.startsWith("video")) || []
+         const [uploadedCoverFile] = await uploader([coverFile], "image")
          const uploadedSessionsFiles = await uploader(sessionsFiles, "video")
+         const course = await CourseModel.findById(req.params.courseId)
 
          const {
             title,
@@ -137,32 +136,32 @@ class MentorController {
             category
          } = req.body;
 
-         const updatedSession = sessions.map((session) => {
-            const sessionItem = uploadedSessionsFiles.splice(0, 1)[0]
+         const updatedSession = sessions.map((session, index) => {
+            let sessionItem = null
+            if(!session.videoLink) {
+               sessionItem = uploadedSessionsFiles?.splice(0, 1)[0]
+            }
             return {
                title: session.title,
                description: session.description || "",
-               videoLink: session.videoLink || sessionItem.url,
-               duration: session.duration || toMinutes(sessionItem.duration),
+               videoLink: session.videoLink || sessionItem?.url,
+               duration: course.sessions[index]?.duration || toMinutes(sessionItem?.duration),
                isFree: session.isFree
             }
          })
 
-         const course = await CourseModel.findByIdAndUpdate(
-            req.params.courseId,
-            {
-               title,
-               sessions: updatedSession,
-               cover: cover || uploadedCoverFile.url,
-               price,
-               discount,
-               category,
-               status: "in_progress",
-               details: { description, duration },
-               offPrice: Number(discount) ? price - discount : null,
-            },
-            {new: true}
-         );
+         course.set({
+            title,
+            sessions: updatedSession,
+            cover: cover || uploadedCoverFile.url,
+            price,
+            discount,
+            category,
+            status: "in_progress",
+            details: { description, duration },
+            offPrice: Number(discount) ? price - discount : null,
+         })
+         await course.save()
          await course.populate("mentor category")
 
          res.status(200).json({
@@ -170,7 +169,7 @@ class MentorController {
             message: "دوره شما تغییر کرد و در انتظار برسی می باشد",
          });
       } catch(error) {
-         console.log(error)
+         console.log("ddfd")
          res.status(500).json({ message: "خطا در برقراری ارتباط با سرور" });
       }
    }
